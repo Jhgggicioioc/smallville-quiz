@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smallville — The Krypton Archives</title>
+<style>
+:root{
+  --bg:#06131d; --panel:#0b202d; --panel2:#102d3d; --cyan:#65d8ff;
+  --blue:#1b8fd1; --gold:#f2c14e; --text:#eef8ff; --muted:#9db7c7;
+  --danger:#ff6878; --ok:#67e8a5;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:
+radial-gradient(circle at 20% 10%,#123a4b 0,transparent 28%),
+radial-gradient(circle at 85% 20%,#172f48 0,transparent 25%),var(--bg);
+color:var(--text);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:
+linear-gradient(120deg,transparent 48%,#fff 49%,transparent 50%);background-size:80px 80px;animation:drift 18s linear infinite}
+@keyframes drift{to{background-position:160px 160px}}
+header{position:fixed;top:0;width:100%;z-index:20;background:rgba(4,15,23,.78);backdrop-filter:blur(14px);border-bottom:1px solid #ffffff15}
+nav{max-width:1150px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:16px 22px}
+.logo{font-weight:900;letter-spacing:3px;color:var(--cyan);text-shadow:0 0 18px #36c8ff66}
+nav a{color:#d9effa;text-decoration:none;margin-left:18px;font-size:14px;cursor:pointer}
+nav a:hover{color:var(--cyan)}
+.hero{min-height:92vh;display:grid;place-items:center;text-align:center;padding:130px 20px 70px;position:relative}
+.hero-content{max-width:850px;animation:rise .9s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+.badge{display:inline-block;border:1px solid #65d8ff55;border-radius:999px;padding:7px 13px;color:var(--cyan);font-size:12px;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(46px,9vw,105px);line-height:.9;margin:22px 0 18px;letter-spacing:-5px}
+.hero h1 span{color:var(--cyan);text-shadow:0 0 30px #4ed7ff66}
+.hero p{max-width:650px;margin:auto;color:var(--muted);font-size:18px;line-height:1.7}
+.btn{display:inline-block;margin-top:28px;padding:14px 22px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--cyan),#238bc6);color:#03111a;font-weight:900;cursor:pointer;box-shadow:0 10px 35px #32c8ff22;transition:.2s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 14px 40px #32c8ff44}
+section{max-width:1150px;margin:auto;padding:85px 22px}
+.section-title{font-size:34px;margin:0 0 10px}.section-sub{color:var(--muted);margin-bottom:30px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:linear-gradient(145deg,#0d2735cc,#081923cc);border:1px solid #ffffff10;border-radius:18px;padding:22px;transition:.25s;box-shadow:0 15px 45px #0004}
+.card:hover{transform:translateY(-5px);border-color:#65d8ff44}
+.card h3{margin:8px 0;color:var(--cyan)}.card p{color:var(--muted);line-height:1.55}
+.symbol{font-size:35px}
+.seasons{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}
+.season{border:1px solid #ffffff18;background:#ffffff08;color:#d9effa;padding:10px 14px;border-radius:10px;cursor:pointer}
+.season.active,.season:hover{background:#65d8ff18;border-color:#65d8ff66;color:var(--cyan)}
+.episodes{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.episode{padding:15px;border-radius:12px;background:#071923;border-left:3px solid var(--blue)}
+.quiz-wrap{max-width:850px;margin:auto;background:linear-gradient(145deg,#0c2635,#071720);border:1px solid #ffffff12;border-radius:24px;padding:28px;box-shadow:0 20px 60px #0005}
+.progress{height:7px;background:#ffffff0c;border-radius:20px;overflow:hidden;margin:15px 0 25px}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--gold));transition:.4s}
+.q{font-size:22px;line-height:1.4;margin:15px 0 20px}.options{display:grid;gap:10px}
+.option{padding:16px;border-radius:13px;border:1px solid #ffffff12;background:#ffffff06;color:var(--text);text-align:left;cursor:pointer;transition:.2s}
+.option:hover{border-color:#65d8ff66;background:#65d8ff0e}
+.option.correct{border-color:#67e8a5;background:#67e8a51a}.option.wrong{border-color:#ff6878;background:#ff68781a}
+.feedback{min-height:24px;color:var(--muted);margin-top:15px;line-height:1.5}
+.score{text-align:center;padding:25px}.score strong{font-size:60px;color:var(--cyan)}
+footer{text-align:center;padding:50px 20px;color:#718b9a;border-top:1px solid #ffffff0b}
+.modal{position:fixed;inset:0;background:#0009;display:none;place-items:center;z-index:30;padding:20px}.modal.open{display:grid}
+.modal-box{max-width:600px;background:#0b202d;border:1px solid #65d8ff33;border-radius:20px;padding:25px}
+.close{float:right;cursor:pointer;color:var(--muted)}
+@media(max-width:650px){nav div:last-child{display:none}h1{letter-spacing:-3px}.hero{min-height:82vh}}
+</style>
+</head>
+<body>
+<header><nav>
+<div class="logo">SMALLVILLE // ARCHIVES</div>
+<div><a href="#universo">Universo</a><a href="#temporadas">Temporadas</a><a href="#quiz">Quiz</a></div>
+</nav></header>
+
+<main>
+<section class="hero">
+<div class="hero-content">
+<div class="badge">THE KRYPTON ARCHIVES</div>
+<h1>SMALL<span>VILLE</span></h1>
+<p>Um arquivo de fã sobre a jornada de Clark Kent antes do Superman — com personagens, temporadas, curiosidades e um quiz para testar sua memória.</p>
+<button class="btn" onclick="document.querySelector('#quiz').scrollIntoView()">ENTRAR NO QUIZ ⚡</button>
+</div>
+</section>
+
+<section id="universo">
+<h2 class="section-title">O universo</h2>
+<p class="section-sub">Explore alguns dos elementos centrais da série.</p>
+<div class="grid">
+<div class="card"><div class="symbol">🦸</div><h3>Clark Kent</h3><p>O jovem kryptoniano criado pelos Kent enquanto descobre seus poderes, sua origem e seu destino.</p></div>
+<div class="card"><div class="symbol">🧬</div><h3>Krypton</h3><p>O planeta de origem de Clark e a chave para muitos dos mistérios que chegam a Smallville.</p></div>
+<div class="card"><div class="symbol">🏙️</div><h3>Metropolis</h3><p>A grande cidade que ganha cada vez mais importância conforme Clark se aproxima de seu futuro.</p></div>
+<div class="card"><div class="symbol">📰</div><h3>The Daily Planet</h3><p>O jornal de Metropolis que se torna importante na trajetória profissional de vários personagens.</p></div>
+</div>
+</section>
+
+<section id="temporadas">
+<h2 class="section-title">As 10 temporadas</h2>
+<p class="section-sub">Clique em uma temporada para abrir um pequeno resumo.</p>
+<div class="seasons" id="seasonButtons"></div>
+<div class="episodes" id="seasonInfo"></div>
+</section>
+
+<section id="quiz">
+<h2 class="section-title">Quiz — nível difícil</h2>
+<p class="section-sub">Perguntas para quem realmente prestou atenção nos detalhes.</p>
+<div class="quiz-wrap" id="quizBox"></div>
+</section>
+</main>
+
+<footer>
+Smallville // The Krypton Archives<br><small>Projeto de fã, não oficial. Smallville e seus personagens são propriedade de seus respectivos detentores de direitos.</small>
+</footer>
+
+<script>
+const seasons=[
+["Temporada 1","Clark começa a lidar com seus poderes enquanto sua amizade com Lex e seus vínculos com Lana, Chloe e Pete se desenvolvem."],
+["Temporada 2","Os mistérios de Krypton ficam mais fortes e Clark começa a descobrir mais sobre sua origem."],
+["Temporada 3","Segredos familiares, a influência de Lionel e novos desafios colocam Clark sob pressão."],
+["Temporada 4","Novos elementos ligados à mitologia de Superman entram na história, enquanto Clark enfrenta ameaças diferentes."],
+["Temporada 5","A relação de Clark com sua origem kryptoniana ganha força e Metropolis passa a ter ainda mais importância."],
+["Temporada 6","Clark enfrenta novos inimigos e aliados enquanto o universo de heróis começa a crescer."],
+["Temporada 7","A chegada de Kara e acontecimentos envolvendo Lex e Clark mudam profundamente a dinâmica da série."],
+["Temporada 8","Clark começa a construir sua vida em Metropolis e o universo de heróis se expande."],
+["Temporada 9","A ameaça de Zod domina grande parte da trama e Clark se aproxima ainda mais de seu destino."],
+["Temporada 10","A temporada final reúne vários elementos da jornada de Clark e prepara sua transformação definitiva em Superman."]
+];
+const sb=document.getElementById("seasonButtons"), si=document.getElementById("seasonInfo");
+seasons.forEach((s,i)=>{
+ const b=document.createElement("button");b.className="season"+(i===0?" active":"");b.textContent="T"+(i+1);
+ b.onclick=()=>{document.querySelectorAll(".season").forEach(x=>x.classList.remove("active"));b.classList.add("active");showSeason(i)};
+ sb.appendChild(b);
+});
+function showSeason(i){si.innerHTML=`<div class="episode"><b>${seasons[i][0]}</b><br><span style="color:#9db7c7">${seasons[i][1]}</span></div><div class="episode"><b>Arquivo</b><br><span style="color:#9db7c7">Clique em outra temporada para explorar a jornada de Clark.</span></div>`}
+showSeason(0);
+
+const questions=[
+["Qual é o nome kryptoniano de Clark?","Kal-El",["Kal-El","Dru-Zod","Dax-Ur","Jor-El"]],
+["Qual é o nome do jornal estudantil associado a Chloe?","The Torch",["The Torch","The Daily Planet","The Inquisitor","Smallville Gazette"]],
+["Quem interpreta Lex Luthor?","Michael Rosenbaum",["Michael Rosenbaum","John Glover","Justin Hartley","Callum Blue"]],
+["Qual personagem é conhecido como Arqueiro Verde?","Oliver Queen",["Oliver Queen","Bart Allen","Arthur Curry","Victor Stone"]],
+["Qual é o nome da mãe adotiva de Clark?","Martha Kent",["Martha Kent","Lara-El","Lana Lang","Lois Lane"]],
+["Qual personagem é associado ao Ciborgue?","Victor Stone",["Victor Stone","Arthur Curry","Bart Allen","John Jones"]],
+["Qual é o nome kryptoniano de Zod?","Dru-Zod",["Dru-Zod","Kal-El","Jor-El","Dax-Ur"]],
+["Quem interpreta Chloe Sullivan?","Allison Mack",["Allison Mack","Erica Durance","Kristin Kreuk","Cassidy Freeman"]],
+["Quem interpreta Lois Lane?","Erica Durance",["Erica Durance","Allison Mack","Kristin Kreuk","Laura Vandervoort"]],
+["Qual personagem é o pai de Lex Luthor?","Lionel Luthor",["Lionel Luthor","Jonathan Kent","Jor-El","Morgan Edge"]]
+];
+let qi=0,score=0,locked=false;
+function renderQuiz(){
+ const box=document.getElementById("quizBox");
+ if(qi>=questions.length){
+  box.innerHTML=`<div class="score"><div>QUIZ CONCLUÍDO</div><strong>${score}/${questions.length}</strong><p>${score===10?"Você lembra de praticamente tudo. Nível S de Smallville.":score>=7?"Mandou muito bem! Algumas memórias kryptonianas precisam de um pequeno reforço.":"Hora de revisitar alguns episódios e voltar para o quiz."}</p><button class="btn" onclick="qi=0;score=0;renderQuiz()">JOGAR NOVAMENTE</button></div>`;
+  return;
+ }
+ const q=questions[qi];
+ box.innerHTML=`<div><b>PERGUNTA ${qi+1} / ${questions.length}</b><div class="progress"><div class="bar" style="width:${qi/questions.length*100}%"></div></div>
+ <div class="q">${q[0]}</div><div class="options">${q[2].map((o,i)=>`<button class="option" onclick="answer(this,'${o.replace(/'/g,"\\'")}','${q[1].replace(/'/g,"\\'")}')">${String.fromCharCode(65+i)}. ${o}</button>`).join("")}</div>
+ <div class="feedback" id="feedback"></div></div>`;
+}
+function answer(el,val,correct){
+ if(locked)return;locked=true;
+ document.querySelectorAll(".option").forEach(x=>{if(x.textContent.includes(correct))x.classList.add("correct")});
+ if(val===correct){el.classList.add("correct");score++;document.getElementById("feedback").textContent="Correto! Memória kryptoniana detectada. ⚡"}
+ else{el.classList.add("wrong");document.getElementById("feedback").textContent="Quase! A resposta correta está destacada."}
+ setTimeout(()=>{qi++;locked=false;renderQuiz()},1000);
+}
+renderQuiz();
+</script>
+</body>
+</html>
